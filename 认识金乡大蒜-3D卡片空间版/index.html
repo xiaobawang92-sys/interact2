@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="twilight">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="认识金乡大蒜 · 3D 液态玻璃卡片空间科普交互系统">
+  <meta name="theme-color" content="#2a2756">
+  <title>认识金乡大蒜 · 3D 液态玻璃空间展屏</title>
+  <link rel="stylesheet" href="素材/展屏.css?v=2026-deck-9">
+</head>
+<body>
+  <!-- 隐藏式光学折射 SVG 滤镜（Chromium 实时采样边缘凸面折射，Safari/Firefox 自动呈现高饱和毛玻璃） -->
+  <svg id="lg-svg-defs" aria-hidden="true" style="position:fixed;width:0;height:0;opacity:0;pointer-events:none;overflow:hidden;">
+    <defs>
+      <filter id="lg-refract-dock" x="0%" y="0%" width="100%" height="100%" color-interpolation-filters="sRGB">
+        <feImage id="lg-map-dock" href="" result="dispMap" preserveAspectRatio="none" />
+        <feDisplacementMap in="SourceGraphic" in2="dispMap" scale="22" xChannelSelector="R" yChannelSelector="G" result="displaced" />
+        <feGaussianBlur in="displaced" stdDeviation="0.35" />
+      </filter>
+      <filter id="lg-refract-pill" x="0%" y="0%" width="100%" height="100%" color-interpolation-filters="sRGB">
+        <feImage id="lg-map-pill" href="" result="dispMap" preserveAspectRatio="none" />
+        <feDisplacementMap in="SourceGraphic" in2="dispMap" scale="14" xChannelSelector="R" yChannelSelector="G" />
+      </filter>
+    </defs>
+  </svg>
+
+  <!-- 空间交互主舞台 -->
+  <div id="app" class="viewport-shell"></div>
+
+  <!-- 高清看图液态玻璃弹窗 -->
+  <div id="lightbox" class="lg-modal" hidden role="dialog" aria-modal="true" aria-label="高清实拍预览">
+    <div class="lg-modal-backdrop" data-close-modal></div>
+    <figure class="lg-modal-card glass-window lightbox-card">
+      <button class="modal-close glass-orb" type="button" data-close-modal aria-label="关闭">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+      <div class="lightbox-media">
+        <img id="lightbox-img" src="" alt="">
+      </div>
+      <figcaption id="lightbox-caption"></figcaption>
+    </figure>
+  </div>
+
+  <!-- 权威数据与素材出处弹窗（点击右下角信息图标展开） -->
+  <div id="info-modal" class="lg-modal" hidden role="dialog" aria-modal="true" aria-label="权威数据与素材出处">
+    <div class="lg-modal-backdrop" data-close-modal></div>
+    <div class="lg-modal-card glass-window info-sheet">
+      <div class="info-sheet-head">
+        <div>
+          <small>DATA &amp; PHOTO CREDITS</small>
+          <h3>权威数据与实拍出处</h3>
+        </div>
+        <button class="modal-close glass-orb" type="button" data-close-modal aria-label="关闭">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+      </div>
+      <ul class="info-list">
+        <li><strong>产业与地理标志</strong><span>国家知识产权局、农业农村部、中国农产品区域公用品牌评估（品牌价值 218.19 亿元；中欧 10+10 地理标志国际互认产品）。</span></li>
+        <li><strong>种植与冷链数据</strong><span>农业农村部及济宁市公开数据：金乡本地常年种植 60–70 万亩、辐射周边超 200 万亩；建有 3,000 余座标准冷库，储藏总能力 400–480 万吨。</span></li>
+        <li><strong>出口与贸易案例</strong><span>出口覆盖 170 余个国家和地区、占全国同类出口量 70% 以上；越南与印度尼西亚案例引自《农民日报》及农业农村部 2026 年会商材料。</span></li>
+        <li><strong>实拍素材</strong><span>保鲜蒜及蒜制品实拍来自山东仁禾食品；田间、晾晒、车间与冷库实拍引自大众新闻、济宁农机中心、中新网及农民日报；种植形态参考肯塔基州立大学农业推广资料。</span></li>
+      </ul>
+      <div class="info-links">
+        <a href="https://english.cnipa.gov.cn/module/download/down.jsp?colID=1364&i_ID=150286" target="_blank" rel="noopener">国家知识产权局 ↗</a>
+        <a href="https://scs.moa.gov.cn/gzdt/202411/t20241105_6465731.htm" target="_blank" rel="noopener">农民日报产区报道 ↗</a>
+        <a href="https://scs.moa.gov.cn/jcyj/202610/t20261009_6488437.htm" target="_blank" rel="noopener">农业农村部出口案例 ↗</a>
+        <a href="https://www.jining.gov.cn/art/2021/10/27/art_71695_2735907.html" target="_blank" rel="noopener">济宁跨境贸易手册 ↗</a>
+        <a href="https://www.sdrenhefood.com/" target="_blank" rel="noopener">山东仁禾食品 ↗</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="素材/liquid-glass.js?v=2026-deck-8"></script>
+  <script src="素材/科普内容.js?v=2026-deck-8"></script>
+  <script src="素材/触控.js?v=2026-deck-8"></script>
+</body>
+</html>
